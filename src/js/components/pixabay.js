@@ -1,30 +1,15 @@
-export default class PixabayService {
-    constructor () {
-        this.searchQuery = '';
-        this.page = 1;
-    }
+import Axios from "axios";
 
-    fetchArticles() {
-        const KEY = "29162955-32e71cd5a6cadb845e07a1aad";
-        const url = `https://pixabay.com/api/?key=${KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=${this.page}`
-    
-        return fetch(url)
-        .then(r => r.json())            
-        .then(data => {
-            this.page += 1;
-            return data.hits;
-        }); 
-    }
+export { fetchArticles }
+const axios = require('axios');
 
-    resetPage() {
-        this.page = 1;
-    }
+axios.default.baseURL = 'https://pixabay.com/api/'
+const KEY = "29162955-32e71cd5a6cadb845e07a1aad"
 
-    get query() {
-        return this.searchQuery;
-    }
-
-    set query(newQuery) {
-        this.searchQuery = newQuery;
-    }
+async function fetchArticles(query, page, perPage) {
+  const response = await axios.get(
+    `?key=${KEY}&q=${query}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=${perPage}`,
+  )
+  return response
 }
+
