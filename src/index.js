@@ -31,7 +31,7 @@ return;
     }
 
 fetchArticles(query, page, perPage)
-    .then (({data}) => {
+.then (({data}) => {
 if (data.totalHits === 0) {
 alertNoContentFound()
 } 
